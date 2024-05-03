@@ -3,36 +3,28 @@ import React, { useRef } from 'react';
 // add debounce that searches as you type
 
 const SearchBar = ({ setSearch }) => {
-  const searchValue = useRef();
+  const searchInput = useRef();
 
-  const handleChange = ({ target }) => {
-
-    const { search, value } = target;
-
-    setFormulario({
-      ...formulario,
-      [search]: value //[] establece propiedad computada del objeto, si no puesieramos [] crearría una nueva propiedad del objeto
-    })
+  const handleChange = () => {
+    setSearch(searchInput.current.value);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      search: searchValue.current.value,
+      search: searchInput.current.value,
     };
     setSearch(data);
   };
 
   return (
     <div>
-      <h4>Search a Pokemon</h4>
+      <h4>Search a Pokemon:</h4>
 
       <form className="register-form" onSubmit={handleSubmit} >
 
-        <label htmlFor="search">
-          <input type="text" ref={searchValue} placeholder='search' onChange={handleChange} required />
-        </label>
-
+          <input type="text" ref={searchInput} placeholder='search' onChange={handleChange} required />
+          <button onClick={handleSubmit}>Search</button>
       </form>
     </div>
   );
